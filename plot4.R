@@ -17,6 +17,10 @@ electricReduced$Time <- strptime(electricReduced$Time, format = "%H:%M:%S")
 electricReduced$Time <- strftime(electricReduced$Time, format = "%H:%M:%S")
 
 #plot4
+electricReduced$datetime <- as.POSIXct(paste(electricReduced$Date, electricReduced$Time), format="%Y-%m-%d %H:%M:%S")
+electricReduced$Sub_metering_1 <- as.numeric(as.character(electricReduced$Sub_metering_1))
+electricReduced$Sub_metering_2 <- as.numeric(as.character(electricReduced$Sub_metering_2))
+electricReduced$Sub_metering_3 <- as.numeric(as.character(electricReduced$Sub_metering_3))
 par(mfrow = c(2,2))
 with(electricReduced, {
   plot(electricReduced$datetime, electricReduced$Global_active_power, type = "l", xlab = "", ylab = "Global Active Power", cex.lab=0.7, cex.axis=0.7)
@@ -24,7 +28,7 @@ with(electricReduced, {
   plot(electricReduced$datetime, electricReduced$Sub_metering_1, type = "l", xlab = "", ylab = "Energy sub metering", cex.lab=0.7, cex.axis=0.7)
     lines(electricReduced$datetime, electricReduced$Sub_metering_2, col="red")
     lines(electricReduced$datetime, electricReduced$Sub_metering_3, col="blue")
-    legend("topright", bty = "n", lty = 1, col=c("black","red","blue"), legend = c("Sub_metering_1","Sub_metering_2", "Sub_metering_3"), cex=0.6, pt.cex = 0.6, xjust = 0)
+    legend("topright", bty = "n", lty = 1, col=c("black","red","blue"), legend = c("Sub_metering_1","Sub_metering_2", "Sub_metering_3"), cex=0.3, pt.cex = 0.3)
   plot(electricReduced$datetime, electricReduced$Global_reactive_power , type = "l", xlab = "datetime", ylab = "Global_reactive_power", cex.lab=0.7, cex.axis=0.7)
 })
 dev.copy(png, file = "plot4.png", width = 480, height = 480, units = "px")
